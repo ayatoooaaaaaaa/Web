@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>あやそんBot</title>
+
+<style>
+:root {
+  --discord: #5865F2;
+  --bg: #0b0f1a;
+  --card: #111827;
+  --neon: #7c8cff;
+}
+
+body {
+  margin: 0;
+  font-family: sans-serif;
+  background: var(--bg);
+  color: white;
+  text-align: center;
+}
+
+header {
+  padding: 120px 20px;
+  background: radial-gradient(circle at top, #1a1f35, var(--bg));
+}
+
+h1 {
+  font-size: 48px;
+}
+
+.button {
+  display: inline-block;
+  padding: 14px 30px;
+  margin-top: 20px;
+  background: var(--discord);
+  border-radius: 40px;
+  text-decoration: none;
+  color: white;
+  transition: 0.3s;
+  box-shadow: 0 0 15px var(--discord);
+}
+
+.button:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 30px var(--neon);
+}
+
+.section {
+  padding: 80px 20px;
+}
+
+.command-card {
+  background: var(--card);
+  margin: 20px auto;
+  padding: 20px;
+  border-radius: 20px;
+  max-width: 500px;
+  text-align: left;
+  box-shadow: 0 0 15px rgba(88,101,242,0.3);
+  transition: 0.3s;
+}
+
+.command-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 0 25px var(--discord);
+}
+
+.command-name {
+  color: var(--neon);
+  font-weight: bold;
+  font-size: 18px;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>あやそんBot ⚡</h1>
+  <p>しゃべるほど強くなる育成Bot</p>
+
+  <h2 id="guildCount">🌐 Loading...</h2>
+
+  <a href="#" class="button">サーバーに追加</a>
+</header>
+
+<div class="section">
+  <h2>コマンド一覧 & 使い方</h2>
+
+  <div class="command-card">
+    <div class="command-name">!level</div>
+    あなたの現在のレベルとXPを表示します。<br>
+    使い方: <code>!level</code>
+  </div>
+
+  <div class="command-card">
+    <div class="command-name">!ranking</div>
+    サーバー内のレベルランキングを表示します。<br>
+    使い方: <code>!ranking</code>
+  </div>
+
+  <div class="command-card">
+    <div class="command-name">!verify コード</div>
+    DMで届いた認証コードを入力してロールを取得します。<br>
+    使い方: <code>!verify ABC123</code>
+  </div>
+
+  <div class="command-card">
+    <div class="command-name">!btimer 秒数</div>
+    ボタン付きタイマーを開始します。<br>
+    使い方: <code>!btimer 60</code>
+  </div>
+
+  <div class="command-card">
+    <div class="command-name">!search ワード</div>
+    ウェブ検索結果を表示します。<br>
+    使い方: <code>!search Discord Bot</code>
+  </div>
+
+  <div class="command-card">
+    <div class="command-name">!wiki ワード</div>
+    Wikipediaの情報を表示します。<br>
+    使い方: <code>!wiki Python</code>
+  </div>
+
+  <div class="command-card">
+    <div class="command-name">!news</div>
+    最新ニュースを取得します。<br>
+    使い方: <code>!news</code>
+  </div>
+
+  <div class="command-card">
+    <div class="command-name">!dlmp3 URL</div>
+    YouTubeからMP3をダウンロードします。<br>
+    使い方: <code>!dlmp3 https://youtube.com/...</code>
+  </div>
+
+  <div class="command-card">
+    <div class="command-name">管理者専用コマンド</div>
+    !makechannels / !wipeall / !backup / !restore / !guildpanel
+  </div>
+
+</div>
+
+<script>
+async function fetchStats() {
+  try {
+    const res = await fetch("http://あなたのIP:5000/stats");
+    const data = await res.json();
+    document.getElementById("guildCount").innerText =
+      "🌐 導入サーバー数: " + data.guilds;
+  } catch (err) {
+    document.getElementById("guildCount").innerText =
+      "🌐 サーバー数取得失敗";
+  }
+}
+
+fetchStats();
+setInterval(fetchStats, 30000);
+</script>
+
+</body>
+</html>
